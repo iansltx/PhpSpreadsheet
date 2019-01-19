@@ -7723,8 +7723,10 @@ class Xls extends BaseReader
         $value = '';
 
         // offset: 0: size: 2; length of the string (character count)
-        $characterCount = self::getUInt2d($subData, 0);
-
+        if (!($characterCount = self::getUInt2d($subData, 0))) {
+            return ['value' => '', 'size' => 2]; // don't try to parse a zero-length string
+        }
+        
         $string = self::readUnicodeString(substr($subData, 2), $characterCount);
 
         // add 2 for the string length
