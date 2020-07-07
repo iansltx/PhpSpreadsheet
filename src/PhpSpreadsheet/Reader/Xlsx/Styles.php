@@ -130,6 +130,10 @@ class Styles extends BaseParserClass
 
     private static function readAlignmentStyle(Alignment $alignment, \SimpleXMLElement $alignmentXml)
     {
+        if (!$alignmentXml->alignment) {
+            return;
+        }
+
         $alignment->setHorizontal((string) $alignmentXml->alignment['horizontal']);
         $alignment->setVertical((string) $alignmentXml->alignment['vertical']);
 
